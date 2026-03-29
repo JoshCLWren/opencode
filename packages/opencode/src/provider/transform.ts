@@ -1074,6 +1074,6 @@ export namespace ProviderTransform {
         return { ...msg, content }
       }
       return msg
-    })
+    }) as ModelMessage[]
   }
 }
