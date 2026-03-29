@@ -13,6 +13,7 @@ import { Filesystem } from "../util/filesystem"
 import { Instance } from "../project/instance"
 import { trimDiff } from "./edit"
 import { assertExternalDirectory } from "./external-directory"
+import * as fs from "fs/promises"
 
 const MAX_DIAGNOSTICS_PER_FILE = 20
 const MAX_PROJECT_DIAGNOSTICS_FILES = 5
@@ -43,6 +44,7 @@ export const WriteTool = Tool.define("write", {
     })
 
     await Filesystem.write(filepath, params.content)
+    await fs.chmod(filepath, 0o644)
     await Format.file(filepath)
     Bus.publish(File.Event.Edited, { file: filepath })
     await Bus.publish(FileWatcher.Event.Updated, {

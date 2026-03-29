@@ -819,7 +819,7 @@ export namespace MessageV2 {
           ProviderTransform.markNeedsScrubbing(modelKey)
           // Convert messages and apply scrubbing
           try {
-            const modelMessages = await convertToModelMessages(messages, { tools })
+            const modelMessages = await convertToModelMessages(messages, { tools: tools as any })
             return ProviderTransform.scrubToolCallIds(modelMessages)
           } catch (conversionError: any) {
             // If conversion still fails, re-throw the original error
